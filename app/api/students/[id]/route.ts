@@ -111,10 +111,15 @@ export async function PUT(
       }
     }
 
-    // Update student
+    // Update student - convert dateOfBirth string to Date if present
+    const updateData = {
+      ...validatedData,
+      dateOfBirth: validatedData.dateOfBirth ? new Date(validatedData.dateOfBirth) : undefined,
+    };
+
     const student = await prisma.student.update({
       where: { id: params.id },
-      data: validatedData,
+      data: updateData,
       include: {
         createdBy: {
           select: {

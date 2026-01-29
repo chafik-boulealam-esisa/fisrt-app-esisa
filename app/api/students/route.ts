@@ -141,12 +141,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create student
+    // Create student - convert dateOfBirth string to Date if present
+    const studentData = {
+      ...validatedData,
+      createdById: session.user.id,
+      dateOfBirth: validatedData.dateOfBirth ? new Date(validatedData.dateOfBirth) : null,
+    };
+
     const student = await prisma.student.create({
-      data: {
-        ...validatedData,
-        createdById: session.user.id,
-      },
+      data: studentData,
       include: {
         createdBy: {
           select: {
