@@ -43,12 +43,12 @@ interface Student {
   status: string;
   createdAt: string;
   updatedAt: string;
-  createdByUser: {
+  createdBy: {
     id: string;
     firstName: string;
     lastName: string;
     email: string;
-  };
+  } | null;
 }
 
 export default function StudentDetailPage() {
@@ -316,7 +316,7 @@ export default function StudentDetailPage() {
             <div>
               <p className="text-sm text-gray-500">Created By</p>
               <p className="font-medium text-gray-900">
-                {student.createdByUser.firstName} {student.createdByUser.lastName}
+                {student.createdBy ? `${student.createdBy.firstName} ${student.createdBy.lastName}` : 'N/A'}
               </p>
             </div>
           </div>

@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
       take: limit,
       orderBy: { [sortBy]: sortOrder },
       include: {
-        createdByUser: {
+        createdBy: {
           select: {
             id: true,
             firstName: true,
@@ -145,10 +145,10 @@ export async function POST(request: NextRequest) {
     const student = await prisma.student.create({
       data: {
         ...validatedData,
-        createdBy: session.user.id,
+        createdById: session.user.id,
       },
       include: {
-        createdByUser: {
+        createdBy: {
           select: {
             id: true,
             firstName: true,

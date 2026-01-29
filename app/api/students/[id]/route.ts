@@ -23,7 +23,7 @@ export async function GET(
     const student = await prisma.student.findUnique({
       where: { id: params.id },
       include: {
-        createdByUser: {
+        createdBy: {
           select: {
             id: true,
             firstName: true,
@@ -116,7 +116,7 @@ export async function PUT(
       where: { id: params.id },
       data: validatedData,
       include: {
-        createdByUser: {
+        createdBy: {
           select: {
             id: true,
             firstName: true,
