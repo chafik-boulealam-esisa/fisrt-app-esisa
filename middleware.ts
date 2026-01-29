@@ -11,8 +11,8 @@ export default withAuth(
       return NextResponse.redirect(new URL('/dashboard', req.url));
     }
 
-    // Check if user account is active
-    if (token && !token.isActive) {
+    // Check if user account is active (only if isActive is explicitly false)
+    if (token && token.isActive === false) {
       return NextResponse.redirect(new URL('/login?error=account_disabled', req.url));
     }
 

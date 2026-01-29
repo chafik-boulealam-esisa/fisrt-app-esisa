@@ -62,6 +62,7 @@ export const authOptions: AuthOptions = {
           firstName: user.firstName,
           lastName: user.lastName,
           role: user.role,
+          isActive: user.isActive,
         };
       },
     }),
@@ -75,6 +76,7 @@ export const authOptions: AuthOptions = {
         token.role = (user as any).role;
         token.firstName = (user as any).firstName;
         token.lastName = (user as any).lastName;
+        token.isActive = (user as any).isActive;
       }
       return token;
     },
