@@ -67,13 +67,13 @@ export async function GET() {
       },
     });
 
-    // Calculate average GPA
+    // Calculate average GPA (only for students with GPA > 0)
     const avgGpaResult = await prisma.student.aggregate({
       _avg: {
         gpa: true,
       },
       where: {
-        gpa: { not: null },
+        gpa: { gt: 0 },
       },
     });
 
@@ -82,7 +82,7 @@ export async function GET() {
       excellent: await prisma.student.count({ where: { gpa: { gte: 3.5 } } }),
       good: await prisma.student.count({ where: { gpa: { gte: 3.0, lt: 3.5 } } }),
       average: await prisma.student.count({ where: { gpa: { gte: 2.5, lt: 3.0 } } }),
-      belowAverage: await prisma.student.count({ where: { gpa: { lt: 2.5 } } }),
+      belowAverage: await prisma.student.count({ where: { gpa: { gt: 0, lt: 2.5 } } }),
     };
 
     return NextResponse.json({
