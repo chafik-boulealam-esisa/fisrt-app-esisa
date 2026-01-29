@@ -35,9 +35,9 @@ export async function GET() {
       where: { status: 'withdrawn' },
     });
 
-    // Get counts by department
-    const studentsByDepartment = await prisma.student.groupBy({
-      by: ['department'],
+    // Get counts by program (department)
+    const studentsByProgram = await prisma.student.groupBy({
+      by: ['program'],
       _count: {
         id: true,
       },
@@ -61,7 +61,7 @@ export async function GET() {
         firstName: true,
         lastName: true,
         email: true,
-        department: true,
+        program: true,
         status: true,
         createdAt: true,
       },
@@ -93,15 +93,18 @@ export async function GET() {
         suspended: suspendedStudents,
         withdrawn: withdrawnStudents,
       },
-      byDepartment: studentsByDepartment.map((d) => ({
-        department: d.department,
+      byDepartment: studentsByProgram.map((d) => ({
+        department: d.program || 'Unknown',
         count: d._count.id,
       })),
       byYear: studentsByYear.map((y) => ({
         year: y.year,
         count: y._count.id,
       })),
-      recentStudents,
+      recentStudents: recentStudents.map((s) => ({
+        ...s,
+        department: s.program,
+      })),
       averageGpa: avgGpaResult._avg.gpa ? parseFloat(avgGpaResult._avg.gpa.toFixed(2)) : null,
       gpaDistribution,
     });
