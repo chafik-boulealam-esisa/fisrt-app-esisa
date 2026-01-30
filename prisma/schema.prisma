@@ -1,13 +1,14 @@
 // Prisma Schema for Student Management System
-// Uses SQLite for easy deployment and development
+// Uses PostgreSQL for Vercel deployment
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // User model for authentication and authorization
