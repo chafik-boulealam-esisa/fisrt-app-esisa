@@ -25,7 +25,6 @@ export default function NewStudentPage() {
     resolver: zodResolver(studentSchema),
     defaultValues: {
       year: 1,
-      semester: 1,
       status: 'active',
       gender: 'male',
     },
