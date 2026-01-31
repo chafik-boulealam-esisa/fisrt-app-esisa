@@ -23,14 +23,14 @@ export async function GET(request: NextRequest) {
     const params = searchParamsSchema.parse({
       search: searchParams.get('search') || undefined,
       status: searchParams.get('status') || undefined,
-      department: searchParams.get('department') || undefined,
+      program: searchParams.get('program') || undefined,
       page: searchParams.get('page') ? parseInt(searchParams.get('page')!) : undefined,
       limit: searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : undefined,
       sortBy: searchParams.get('sortBy') || undefined,
       sortOrder: searchParams.get('sortOrder') || undefined,
     });
 
-    const { search, status, department, page, limit, sortBy, sortOrder } = params;
+    const { search, status, program, page, limit, sortBy, sortOrder } = params;
     const skip = (page - 1) * limit;
 
     // Build where clause
@@ -49,8 +49,8 @@ export async function GET(request: NextRequest) {
       where.status = status;
     }
     
-    if (department) {
-      where.department = department;
+    if (program) {
+      where.program = program;
     }
 
     // Get total count
