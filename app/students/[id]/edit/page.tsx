@@ -183,27 +183,15 @@ export default function EditStudentPage() {
             </h2>
             <div className="space-y-4">
               <Select
-                {...register('department')}
-                label="Department"
+                {...register('program')}
+                label="Program"
                 options={[
-                  { value: '', label: 'Select Department' },
+                  { value: '', label: 'Select Program' },
                   { value: 'Computer Science', label: 'Computer Science' },
                   { value: 'Information Technology', label: 'Information Technology' },
                   { value: 'Software Engineering', label: 'Software Engineering' },
                   { value: 'Data Science', label: 'Data Science' },
                   { value: 'Cybersecurity', label: 'Cybersecurity' },
-                ]}
-                error={errors.department?.message}
-              />
-              <Select
-                {...register('program')}
-                label="Program"
-                options={[
-                  { value: '', label: 'Select Program' },
-                  { value: 'Bachelor', label: 'Bachelor' },
-                  { value: 'Master', label: 'Master' },
-                  { value: 'PhD', label: 'PhD' },
-                  { value: 'Diploma', label: 'Diploma' },
                 ]}
                 error={errors.program?.message}
               />
@@ -220,31 +208,18 @@ export default function EditStudentPage() {
                   ]}
                   error={errors.year?.message}
                 />
-                <Select
-                  {...register('semester', { valueAsNumber: true })}
-                  label="Semester"
-                  options={[
-                    { value: '1', label: 'Semester 1' },
-                    { value: '2', label: 'Semester 2' },
-                  ]}
-                  error={errors.semester?.message}
+                <Input
+                  {...register('gpa', { valueAsNumber: true })}
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  max="4"
+                  label="GPA (Optional)"
+                  placeholder="e.g., 3.50"
+                  error={errors.gpa?.message}
                 />
               </div>
               <Input
-                {...register('enrollmentDate')}
-                type="date"
-                label="Enrollment Date"
-                error={errors.enrollmentDate?.message}
-              />
-              <Input
-                {...register('gpa', { valueAsNumber: true })}
-                type="number"
-                step="0.01"
-                min="0"
-                max="4"
-                label="GPA (Optional)"
-                placeholder="e.g., 3.50"
-                error={errors.gpa?.message}
               />
               <Select
                 {...register('status')}
