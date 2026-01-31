@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Layout } from '@/components/layout';
@@ -50,7 +50,7 @@ interface Pagination {
   totalPages: number;
 }
 
-export default function StudentsPage() {
+function StudentsContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
@@ -297,5 +297,19 @@ export default function StudentsPage() {
         isLoading={isDeleting}
       />
     </Layout>
+  );
+}
+
+export default function StudentsPage() {
+  return (
+    <Suspense fallback={
+      <Layout>
+        <div className="flex items-center justify-center py-12">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
+      </Layout>
+    }>
+      <StudentsContent />
+    </Suspense>
   );
 }
