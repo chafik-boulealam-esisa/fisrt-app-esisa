@@ -124,6 +124,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Password is required for new users
+    if (!validatedData.password) {
+      return NextResponse.json(
+        { error: 'Password is required for new users' },
+        { status: 400 }
+      );
+    }
+
     // Hash password
     const hashedPassword = await bcrypt.hash(validatedData.password, 12);
 
